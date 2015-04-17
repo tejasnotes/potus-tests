@@ -3,7 +3,7 @@ package com.herokuapp.potus
 import geb.Page
 
 class IndexPage extends Page {
-  static url = System.getProperty('UI_URL')
+  static url = '/'
 
   static at = {
     title == 'Presidents of the United States'
