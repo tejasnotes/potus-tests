@@ -39,15 +39,18 @@ dependencies {
     }
 }
 
+def loadProperties() {
+    def environment = hasProperty('env') ? env : 'dev'
+    println "Environment is set to $environment"
+
+    def configFile = file('Config.groovy')
+    def config = new ConfigSlurper(environment).parse(configFile.toURL())
+    setProperty 'config', config
+}
+loadProperties()
+
 drivers.each { driver ->
     task "${driver}Test"(type: Test) {
-
-        def environment = hasProperty('env') ? env : 'dev'
-        println "Environment is set to $environment"
-
-        def configFile = new File('./Config.groovy')
-        def config = new ConfigSlurper(environment).parse(configFile.toURL())
-        setProperty 'config', config
 
         systemProperty 'UI_URL', config.ui.url
         systemProperty 'API_URL', config.api.url
