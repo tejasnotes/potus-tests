@@ -5,13 +5,11 @@ import groovyx.net.http.RESTClient
 class API {
   static final String ROOT = System.getProperty('API_URL').toString()
 
-  private def doGet(String uri) {
-    def http = new RESTClient("$ROOT$uri")
-    def res = http.get()
+  def listPresidents() {
+    def http = new RESTClient(ROOT)
+    def res = http.get(
+      path: '/presidents'
+    )
     res.data
-  }
-
-  List presidentList() {
-    doGet('/presidents')
   }
 }

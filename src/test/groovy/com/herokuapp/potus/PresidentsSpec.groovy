@@ -18,7 +18,7 @@ class PresidentsSpec extends GebReportingSpec {
     at IndexPage
 
     when:
-    def apiPresidents = api.presidentList()
+    def apiPresidents = api.listPresidents()
 
     then:
     apiPresidents.each { president ->
