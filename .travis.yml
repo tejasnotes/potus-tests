@@ -1,4 +1,6 @@
 language: groovy
 jdk:
   - oraclejdk8
-script: chmod +x ./gradlew && ./gradlew cleanTest phantomJsTest
+before_install:
+  - chmod +x ./gradlew
+script: ./gradlew cleanTest phantomJsTest
