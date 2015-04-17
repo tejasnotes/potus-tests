@@ -45,7 +45,7 @@ drivers.each { driver ->
         def environment = hasProperty('env') ? env : 'dev'
         println "Environment is set to $environment"
 
-        def configFile = file('Config.groovy')
+        def configFile = new File('./Config.groovy')
         def config = new ConfigSlurper(environment).parse(configFile.toURL())
         setProperty 'config', config
 
