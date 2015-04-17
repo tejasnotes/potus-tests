@@ -1,4 +1,4 @@
 language: groovy
 jdk:
   - oraclejdk8
-script: gradlew cleanTest phantomJsTest
+script: chmod +x ./gradlew && ./gradlew cleanTest phantomJsTest
