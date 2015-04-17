@@ -79,6 +79,5 @@ phantomJsTest {
 }
 
 test {
-    dependsOn chromeTest
     enabled = false
 }
