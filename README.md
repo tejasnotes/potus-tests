@@ -23,7 +23,7 @@ Your mission, should you choose to accept, is to write functional tests to ensur
 
 ## Usage
 
-Clone / fork or download a copy of this repository. A sample test has been created in the src/groovy directory. Run the tests by executing the gradlew binary.
+Clone, fork or download a copy of this repository. A sample test has been created in the src/groovy directory. Run the tests by executing the gradlew binary.
 
 Windows
 
@@ -34,3 +34,7 @@ Linux / Mac OS
     ./gradlew -Penv=test chromeTest
 
 You will need to use a machine that can access the URLs in the notes section above.
+
+## Status
+
+[![Build Status](https://travis-ci.org/stevegood/potus-tests.svg?branch=master)](https://travis-ci.org/stevegood/potus-tests)
