@@ -10,7 +10,7 @@ environments {
         }
     }
 
-    prod {
+    test {
       ui {
         url = 'https://potus-ui.herokuapp.com'
       }

@@ -14,8 +14,6 @@ ext {
 }
 
 apply plugin: "groovy"
-apply from: "gradle/idea.gradle"
-apply from: "gradle/ci.gradle"
 apply from: "gradle/osSpecificDownloads.gradle"
 
 repositories {
@@ -82,5 +80,6 @@ phantomJsTest {
 }
 
 test {
+    dependsOn chromeTest
     enabled = false
 }
