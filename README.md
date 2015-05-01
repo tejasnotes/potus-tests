@@ -20,3 +20,17 @@ Your mission, should you choose to accept, is to write functional tests to ensur
       - name: string value
     - [GET] /presidents/with-year/:year
       - year: numeric value
+
+## Usage
+
+Clone / fork or download a copy of this repository. A sample test has been created in the src/groovy directory. Run the tests by executing the gradlew binary.
+
+Windows
+
+    gradlew.bat -Penv=test chromeTest
+
+Linux / Mac OS
+
+    ./gradlew -Penv=test chromeTest
+
+You will need to use a machine that can access the URLs in the notes section above.
