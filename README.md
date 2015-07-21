@@ -12,7 +12,7 @@ Your mission, should you choose to accept, is to write functional tests to ensur
 
 ## Usage
 
-A [sample test](https://github.com/stevegood/potus-tests/blob/master/src/test/groovy/com/herokuapp/potus/PresidentsSpec.groovy#L5) has been created in the src/groovy directory. Run the tests by executing the gradlew binary.
+A [sample test](https://github.com/stevegood/potus-tests/blob/master/src/test/groovy/com/herokuapp/potus/PresidentsSpec.groovy#L13) has been created in the src/groovy directory. Run the tests by executing the gradlew binary.
 
 Windows
 
