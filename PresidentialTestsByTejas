@@ -1,0 +1,111 @@
+package presidentsTest;
+
+import org.testng.annotations.Test;
+
+import org.testng.annotations.BeforeClass;
+
+import java.util.Calendar;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+
+public class PresidentsTest {
+	private WebDriver driver;
+	private String baseUrl;
+	
+	@BeforeClass
+	public void beforeClass() {
+		driver = new FirefoxDriver();
+	    baseUrl = "https://potus-ui.herokuapp.com/";
+	 	}
+	//Search for Presidents by year  
+	@Test
+    public void ByYear() {
+    driver.get(baseUrl);
+    //Check for availability of searching for Presidents by Year
+    isElementPresent(By.xpath("//*[@id='navigation']/div[2]/a"));
+    driver.findElement(By.xpath("//*[@id='navigation']/div[2]/a")).click();
+    //Check for presence of Year field
+    isElementPresent(By.xpath("//*[@id='year']"));
+    WebElement year_select = driver.findElement(By.xpath("//*[@id='year']"));
+    Select year = new Select(year_select);
+    //Check any year >=1789 till current year can selected
+    Calendar now = Calendar.getInstance();
+    int CurYear = now.get(Calendar.YEAR);
+    
+    for (int i=1789;i<=CurYear;i++){
+    	year.selectByValue(Integer.toString(i));
+    	//Check President's name is displayed
+    	isElementPresent(By.xpath("//*[@id='presidents']/li/a/strong"));
+    	String PresName = driver.findElement(By.xpath("//*[@id='presidents']/li/a/strong")).getText();
+    	if (!PresName.contains(" ")) {
+    		System.out.println("President's name is missing either Middle or Last Name");
+    	}
+    	//Check Party's name displayed
+    	isElementPresent(By.xpath("//*[@id='presidents']/li/span/em"));
+    	String Party = driver.findElement(By.xpath("//*[@id='presidents']/li/span/em")).getText();
+    	if (Party == null){
+    		System.out.println("Party's name is missing");
+    	}
+    }
+	}
+	
+	//Test for searching Presidents by name
+	@Test
+    public void ByName() {
+	driver.get(baseUrl);
+    //Check for availability of searching for Presidents by Name
+    isElementPresent(By.xpath("//*[@id='navigation']/div[3]/a"));
+    driver.findElement(By.xpath("//*[@id='navigation']/div[3]/a")).click();
+    //Check for search box
+    isElementPresent(By.xpath("//*[@id='q']"));
+    //Check for search button
+    isElementPresent(By.xpath("//*[@id='search-btn']"));
+    //Fetch President's name from excel file and use input in the search field to see correct details are displayed
+	
+    //example searches for Abraham and Bush
+    driver.findElement(By.xpath("//*[@id='q']")).sendKeys("Abraham");
+    Assert.assertEquals(driver.findElement(By.xpath("//*[@id='presidents']/li/a/strong")).getText(), "Abraham Licoln");
+    driver.findElement(By.xpath("//*[@id='q']")).sendKeys("Bush");
+    Assert.assertEquals(driver.findElement(By.xpath("//*[@id='presidents']/li[1]/a/strong")).getText(), "George Bush");
+    Assert.assertEquals(driver.findElement(By.xpath("//*[@id='presidents']/li[2]/a/strong")).getText(), "George W. Bush");
+	}
+	
+	//Test for Presidential parties pie chart
+	@Test
+    public void ByParty() {
+	driver.get(baseUrl);
+    //Check for availability of Presidential parties
+    isElementPresent(By.xpath("//*[@id='navigation']/div[4]/a"));
+    driver.findElement(By.xpath("//*[@id='navigation']/div[4]/a")).click();
+    //Check for pie chart presence
+    isElementPresent(By.xpath("//*[@id='chart']"));
+    //Check for pie legend showing parties
+    isElementPresent(By.xpath("//*[@id='legend']/ul"));
+
+	}
+	
+	private boolean isElementPresent(By by) {
+	    try {
+	      driver.findElement(by);
+	      return true;
+	    } catch (NoSuchElementException e) {
+	      return false;
+	    }
+	  }
+  @AfterClass
+  public void afterClass() {
+  driver.quit();
+  }
+
+}
